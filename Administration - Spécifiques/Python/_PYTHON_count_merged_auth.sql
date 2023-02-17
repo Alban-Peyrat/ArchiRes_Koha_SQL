@@ -1,5 +1,5 @@
 SELECT authtypecode,
-    COUNT(*)
+    COUNT(*) as "nb_auth"
     
 FROM auth_header
 
@@ -11,4 +11,4 @@ GROUP BY authtypecode
 Rapport ID (prod) : 1331
 
 
-AR163 : Compte le nombre d'autorités fusionnées par type d'autorités */
+POUR PYTHON AR163 : Compte le nombre d'autorités fusionnées par type d'autorités */

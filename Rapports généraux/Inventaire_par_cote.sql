@@ -20,6 +20,8 @@ WHERE  i.homebranch = <<Bibliothèque |branches>>
 ORDER BY i.itemcallnumber
 
 /* Inventaire par cote, type de document [optionnel] et localisation [optionnel]
-Ex-780 Ex-1191 Ex-1205- #AR230
+Ex-780 Ex-1191 Ex-1205 Ex-1132 #AR230
+
+Rapport ID (prod) : 1341
 
 Optionnal params from "Count of collection by Dewey 10s (tens) optional branch/itemtype limit" (Koha SQL Reports Library) */
