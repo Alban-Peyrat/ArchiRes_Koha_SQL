@@ -7,21 +7,31 @@ SELECT biblionumber AS 'bibnb',
 FROM biblio b
 LEFT JOIN biblioitems bi USING(biblionumber)
 LEFT JOIN items i USING(biblionumber)
+LEFT JOIN aqorders a USING(biblionumber)
 
 WHERE (
-        (bi.itemtype NOT IN (
-        SELECT authorised_value
-        
-        FROM authorised_values
-        
-        WHERE category = "TYPEDOC"))
-    
-        OR bi.itemtype IS NULL
+        (
+            (bi.itemtype NOT IN (
+                SELECT authorised_value 
+                FROM authorised_values
+                WHERE category = "TYPEDOC"
+                )
+            )
+            OR (bi.itemtype IS NULL)
+        )
+        AND (a.biblionumber IS NULL OR a.orderstatus = "cancelled")
+/*        AND (biblionumber NOT IN (
+            SELECT biblionumber
+            FROM aqorders
+            WHERE orderstatus != "cancelled"
+            )
+        )*/
+        AND (b.abstract != "PPN001" OR b.abstract IS NULL) /* Do not del PPN001 records */
     )
 
 GROUP BY biblionumber
 
-/* Rapport ID (test) : 1344
+/* Rapport ID (test) : 1328
 Rapport ID (prod) : 1328
 
 POUR PYTHON #AR180

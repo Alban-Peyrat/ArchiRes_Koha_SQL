@@ -4,6 +4,7 @@ SELECT b.biblionumber,
     b.author,
     bi.isbn,
     i.barcode,
+    i.itemnumber,
     i.itemcallnumber,
     i.location,
     i.stocknumber

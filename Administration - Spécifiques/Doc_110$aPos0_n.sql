@@ -14,8 +14,6 @@ LEFT JOIN authorised_values av ON bi.itemtype = av.authorised_value AND av.categ
 
 WHERE (LEFT(ExtractValue(bm.metadata, '//datafield[@tag="110"]/subfield[@code="a"]'), 1) = "n")
 
-
-
 /* Rapport ID (test) : 1312
 Rapport ID (prod) : 1302
 
