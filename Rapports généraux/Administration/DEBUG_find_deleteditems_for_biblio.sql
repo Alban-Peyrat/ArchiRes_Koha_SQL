@@ -1,5 +1,6 @@
 SELECT biblionumber as biblionumber,
     itemnumber,
+    barcode,
     stocknumber,
     itemcallnumber,
     homebranch,

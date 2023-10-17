@@ -1,5 +1,6 @@
 SELECT "Items" as source,
     itemnumber,
+    barcode,
     stocknumber,
     itemcallnumber,
     homebranch,
@@ -11,6 +12,7 @@ UNION ALL
 
 SELECT "Deleted items" as source,
     itemnumber,
+    barcode,
     stocknumber,
     itemcallnumber,
     homebranch,
@@ -22,6 +24,7 @@ UNION ALL
 
 SELECT "Aqorders items" as source,
     itemnumber,
+    "" AS barcode,
     "" AS stocknumber,
     "" AS itemcallnumber,
     "" AS homebranch,
