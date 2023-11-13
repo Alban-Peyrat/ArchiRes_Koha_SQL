@@ -4,7 +4,7 @@ SELECT "Biblio" as source,
     b.author,
     bi.publicationyear,
     bi.itemtype,
-    ExtractValue(bm.metadata, '//datafield[@tag="035"]/subfield[@code="a"]'),
+    ExtractValue(bm.metadata, '//datafield[@tag="035"]/subfield[@code="z"]') AS "merge",
     b.timestamp
 FROM biblio b
 LEFT JOIN biblioitems bi USING (biblionumber)
@@ -19,11 +19,26 @@ SELECT "Deleted biblio" as source,
     db.author,
     dbi.publicationyear,
     dbi.itemtype,
-    ExtractValue(dbm.metadata, '//datafield[@tag="035"]/subfield[@code="a"]'),
+    ExtractValue(dbm.metadata, '//datafield[@tag="035"]/subfield[@code="z"]') AS "merge",
     db.timestamp
 FROM deletedbiblio db
 LEFT JOIN deletedbiblioitems dbi USING (biblionumber)
 LEFT JOIN deletedbiblio_metadata dbm USING (biblionumber)
 WHERE biblionumber = <<Biblionumber>>
 
-/* Ce rapprot permet de retrouver une notice dans al table biblio ou deleted_biblios. */
+UNION ALL
+
+SELECT "Merged biblio" as source,
+    biblionumber,
+    b.title,
+    b.author,
+    bi.publicationyear,
+    bi.itemtype,
+    ExtractValue(bm.metadata, '//datafield[@tag="035"]/subfield[@code="z"]') AS "merge",
+    b.timestamp
+FROM biblio b
+LEFT JOIN biblioitems bi USING (biblionumber)
+LEFT JOIN biblio_metadata bm USING (biblionumber)
+WHERE ExtractValue(metadata, '//datafield[@tag="035"]/subfield[@code="z"]') = CONCAT("Archires_FUS_BIB", <<Biblionumber>>)
+
+/* Ce rapprot permet de retrouver une notice dans al table biblio ou deleted_biblios, indiquant la notice qui a été fusionné si nécessaire. */
