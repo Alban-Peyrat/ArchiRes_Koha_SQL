@@ -25,6 +25,6 @@ HAVING (
 Rapport ID (prod) : 1340
 
 
-POUR PYTHON AR230 : liste les rapports avec de possibles produits cartésiens
+UTILISÉ DANS DES AUTOMATIONS AR230 : liste les rapports avec de possibles produits cartésiens
 Détection des produits cartésiens par BibLibre https://git.biblibre.com/biblibre/tools/src/branch/master/koha/db_check_reports.sh
 https://mariadb.com/kb/en/pcre/#option-setting */

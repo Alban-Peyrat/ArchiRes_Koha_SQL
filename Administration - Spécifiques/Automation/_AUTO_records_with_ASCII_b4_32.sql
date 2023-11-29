@@ -15,7 +15,7 @@ WHERE (
 /* Rapport ID (test) : 1338
 Rapport ID (prod) : 1338
 
-POUR PYTHON Identifie les notices avec des caractères ASCII avant 32 (control characters) dans les titres, auteurs ou cotes (j'ai pas de cas dans les cotes, donc je ne sais pas si ça fonctionne)
+UTILISÉ DANS DES AUTOMATIONS Identifie les notices avec des caractères ASCII avant 32 (control characters) dans les titres, auteurs ou cotes (j'ai pas de cas dans les cotes, donc je ne sais pas si ça fonctionne)
 http://MYOPAC/cgi-bin/koha/svc/report?id=REPORTID
 https://fr.wikibooks.org/wiki/MySQL/Regex
 https://dev.mysql.com/doc/refman/8.0/en/regexp.html#function_regexp-instr

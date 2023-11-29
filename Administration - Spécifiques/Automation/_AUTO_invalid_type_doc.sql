@@ -1,8 +1,7 @@
 SELECT biblionumber AS 'bibnb',
     bi.itemtype AS 'type_doc',
     b.abstract AS 'ppn',
-    GROUP_CONCAT(DISTINCT i.homebranch SEPARATOR '|') AS "branch",
-    CONCAT('<a href="/cgi-bin/koha/catalogue/detail.pl?biblionumber=',biblionumber,'">',biblionumber,'</a>') as "lien_koha"
+    GROUP_CONCAT(DISTINCT i.homebranch SEPARATOR '|') AS "branch"
 
 FROM biblio b
 LEFT JOIN biblioitems bi USING(biblionumber)
@@ -34,5 +33,5 @@ GROUP BY biblionumber
 /* Rapport ID (test) : 1328
 Rapport ID (prod) : 1328
 
-POUR PYTHON #AR180
+UTILISÉ DANS DES AUTOMATIONS #AR180
 Liste les document sans type de doc / avec type de doc invalide */

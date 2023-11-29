@@ -22,8 +22,8 @@ WHERE
     )
 
 
-/* Rapport ID (test) : 1373
+/* Rapport ID (test) : 1376
 Rapport ID (prod) : 1376
 
 
-POUR PYTHON AR264 : Montre les documents ayant un PPN mais pas dans biblio.abstract */
+UTILISÉ DANS DES AUTOMATIONS AR264 : Montre les documents ayant un PPN mais pas dans biblio.abstract */

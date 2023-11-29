@@ -8,8 +8,8 @@ WHERE ExtractValue(marcxml, '//controlfield[@tag="009"]') = ''
 
 GROUP BY authtypecode
 
-/* Rapport ID (test) : 1354
+/* Rapport ID (test) : 1362
 Rapport ID (prod) : 1362
 
 
-POUR PYTHON AR163 : Compte le nombre d'autorités avec une 033 mais sans PPN par type d'autorités */
+UTILISÉ DANS DES AUTOMATIONS AR163 : Compte le nombre d'autorités avec une 033 mais sans PPN par type d'autorités */
