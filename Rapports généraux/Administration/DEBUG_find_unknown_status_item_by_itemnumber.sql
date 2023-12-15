@@ -1,4 +1,5 @@
 SELECT "Items" as source,
+    biblionumber,
     itemnumber,
     barcode,
     stocknumber,
@@ -11,6 +12,7 @@ WHERE itemnumber = <<Itemnumber>>
 UNION ALL
 
 SELECT "Deleted items" as source,
+    biblionumber,
     itemnumber,
     barcode,
     stocknumber,
@@ -23,6 +25,7 @@ WHERE itemnumber = <<Itemnumber>>
 UNION ALL
 
 SELECT "Aqorders items" as source,
+    "" AS biblionumber,
     itemnumber,
     "" AS barcode,
     "" AS stocknumber,
