@@ -7,7 +7,7 @@ SELECT "Items" as source,
     homebranch,
     holdingbranch
 FROM items
-WHERE itemnumber = <<Itemnumber>>
+WHERE itemnumber = TRIM(<<Itemnumber>>)
 
 UNION ALL
 
@@ -21,7 +21,7 @@ SELECT "Deleted items" as source,
     holdingbranch
     
 FROM deleteditems
-WHERE itemnumber = <<Itemnumber>>
+WHERE itemnumber = TRIM(<<Itemnumber>>)
 UNION ALL
 
 SELECT "Aqorders items" as source,
@@ -34,7 +34,7 @@ SELECT "Aqorders items" as source,
     "" AS holdingbranch
     
 FROM aqorders_items
-WHERE itemnumber = <<Itemnumber>>
+WHERE itemnumber = TRIM(<<Itemnumber>>)
 
 /* Ce rapprot permet de retrouver un item dans al table item ou deleted_items.
 Pour les items dans aqorders, liste uniquement s'ils sont présent dans la table */

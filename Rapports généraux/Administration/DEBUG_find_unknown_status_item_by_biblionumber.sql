@@ -7,7 +7,7 @@ SELECT "Items" as source,
     holdingbranch,
     timestamp
 FROM items
-WHERE biblionumber = <<Biblionumber>>
+WHERE biblionumber = TRIM(<<Biblionumber>>)
 
 UNION ALL
 
@@ -21,7 +21,7 @@ SELECT "Deleted items" as source,
     timestamp
     
 FROM deleteditems
-WHERE biblionumber = <<Biblionumber>>
+WHERE biblionumber = TRIM(<<Biblionumber>>)
 UNION ALL
 
 SELECT "Aqorders items" as source,
@@ -35,7 +35,7 @@ SELECT "Aqorders items" as source,
     
 FROM aqorders_items
 LEFT JOIN aqorders USING(ordernumber)
-WHERE aqorders.biblionumber = <<Biblionumber>>
+WHERE aqorders.biblionumber = TRIM(<<Biblionumber>>)
 
 /* Ce rapprot permet de retrouver les items d'une notice dans al table item ou deleted_items.
 Pour les items dans aqorders, liste uniquement s'ils sont présent dans la table */
