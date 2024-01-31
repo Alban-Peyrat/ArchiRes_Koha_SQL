@@ -20,8 +20,11 @@ LEFT JOIN items i USING(biblionumber)
 
 
 WHERE (
-    (bi.itemtype = "DOS")
-    AND (i.itemcallnumber REGEXP 'Revue de presse Gironde')
+    (bi.itemtype IN ("DOS", "ART"))
+    AND (
+        i.itemcallnumber REGEXP 'Revue de presse Gironde'
+        OR i.itemcallnumber REGEXP 'Sud Ouest'
+        )
     )
 
 HAVING (463t_clean = "SUD OUEST")

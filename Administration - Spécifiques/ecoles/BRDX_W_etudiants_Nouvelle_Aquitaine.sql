@@ -1,7 +1,4 @@
-/* MINIFY OBLIGATOIRE */
-
 SELECT COALESCE(CONCAT(b.title, " : ", bi.volume), b.title) AS "title",
-    b.author as "author",
     REGEXP_REPLACE(
         REGEXP_REPLACE(
             REGEXP_REPLACE(
@@ -52,111 +49,30 @@ SELECT COALESCE(CONCAT(b.title, " : ", bi.volume), b.title) AS "title",
         /* Remove | between surname and first name*/
         "\\|, \\|",
         ", "
-    ) AS "author_v2",
+    ) AS "author",
     SUBSTR(ExtractValue(bm.metadata, '//datafield[@tag="100"]/subfield[@code="a"]'), 10, 4) AS "date_100",
-    bi.publicationyear AS "date_raw",
     IF(REGEXP_SUBSTR(bi.publicationyear, "\\d{4}") != "", REGEXP_SUBSTR(bi.publicationyear, "\\d{4}"), bi.publicationyear) AS "date_mod",
     av.lib AS "typedoc_name",
-    REGEXP_REPLACE(
-        REGEXP_REPLACE(
-            REGEXP_REPLACE(
-                REGEXP_REPLACE(
-                    REGEXP_REPLACE(
-                        REGEXP_REPLACE(
-                            REGEXP_REPLACE(
-                                REGEXP_REPLACE(
-                                    bm.metadata,
-                                    /* Replace \n by spaces */
-                                    "\n",
-                                    " "
-                                ),
-                                /* Clear white spaces between tags */
-                                ">\\s*<",
-                                "><"
-                            ),
-                            /* Remove all non-609 datafields*/
-                            '<datafield tag="(?!609).*?<\/datafield>',
-                            ""
-                        ),
-                        /* Remove all non-datafield*/
-                        '.*?(<datafield.*<\/datafield>).*',
-                        "\\1"
-                    ),
-                    /* Remove all non $a subfield*/
-                    '<subfield code="[^a]">.*?<\/subfield>',
-                    ""
-                ),
-                /* Remove everything between < > */
-                "<.*?>",
-                "|"
-            ),
-            /* Removes multiples | */
-            "\\|+",
-            "|"
-        ),
-        /* Remove leadeing and trailing | */
-        "^\\||\\|$",
-        ""
-    ) AS "localisation",
-    REGEXP_REPLACE(
-        REGEXP_REPLACE(
-            REGEXP_REPLACE(
-                REGEXP_REPLACE(
-                    REGEXP_REPLACE(
-                        REGEXP_REPLACE(
-                            REGEXP_REPLACE(
-                                REGEXP_REPLACE(
-                                    bm.metadata,
-                                    /* Replace \n by spaces */
-                                    "\n",
-                                    " "
-                                ),
-                                /* Clear white spaces between tags */
-                                ">\\s*<",
-                                "><"
-                            ),
-                            /* Remove all non-610 datafields*/
-                            '<datafield tag="(?!610).*?<\/datafield>',
-                            ""
-                        ),
-                        /* Remove all non-datafield*/
-                        '.*?(<datafield.*<\/datafield>).*',
-                        "\\1"
-                    ),
-                    /* Remove all non $a subfield*/
-                    '<subfield code="[^a]">.*?<\/subfield>',
-                    ""
-                ),
-                /* Remove everything between < > */
-                "<.*?>",
-                "|"
-            ),
-            /* Removes multiples | */
-            "\\|+",
-            "|"
-        ),
-        /* Remove leadeing and trailing | */
-        "^\\||\\|$",
-        ""
-    ) AS "keywords",
+    TRIM(TRAILING '|' FROM ExtractValue(bm.metadata, "concat(//datafield[@tag='609']/subfield[@code='a'][1], concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][2], concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][3], concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][4], concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][5], concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][6],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][7],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][8],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][9],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][10],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][11],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][12],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][13],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][14],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][15],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][16],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][17],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][18],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][19],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][20],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][21],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][22],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][23],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][24],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][25],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][26],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][27],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][28],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][29],concat('|', concat(//datafield[@tag='609']/subfield[@code='a'][30], '|')))))))))))))))))))))))))))))))))))))))))))))))))))))))))))")) AS "localisation",
+    TRIM(TRAILING '|' FROM ExtractValue(bm.metadata, "concat(//datafield[@tag='610']/subfield[@code='a'][1], concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][2], concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][3], concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][4], concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][5], concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][6],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][7],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][8],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][9],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][10],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][11],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][12],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][13],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][14],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][15],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][16],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][17],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][18],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][19],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][20],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][21],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][22],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][23],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][24],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][25],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][26],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][27],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][28],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][29],concat('|', concat(//datafield[@tag='610']/subfield[@code='a'][30], '|')))))))))))))))))))))))))))))))))))))))))))))))))))))))))))")) AS "keywords",
     ExtractValue(bm.metadata, '//datafield[@tag="330"]/subfield[@code="a"]') AS "abstract",
     CONCAT("http://www.archires.archi.fr/recherche/viewnotice/id_sigb/", biblionumber, "/id_site/*/id_profil/61") AS "archires_link",
     IF(
         ExtractValue(bm.metadata, '//datafield[@tag="099"]/subfield[@code="x"]')=1,
         CONCAT("https://omeka.archires.archi.fr/cas/login?gateway=true&redirect_url=https://omeka.archires.archi.fr/s/ensa/get-biblio/", biblionumber),
         "DOCUMENT_IMPRIME"
-    ) AS "consulter_le_fichier",
+    ) AS "omeka_link",
     biblionumber
 
 FROM biblio b
 JOIN biblioitems bi USING (biblionumber)
 JOIN biblio_metadata bm USING(biblionumber)
 JOIN items i USING(biblionumber)
-JOIN authorised_values av ON bi.itemtype = av.authorised_value AND av.category = "TYPEDOC"
+JOIN authorised_values av ON ExtractValue(bm.metadata, '//datafield[@tag="029"]/subfield[@code="m"]') REGEXP "(?<=\d{4})_[A-Z]+_" = REPLACE(REPLACE(av.authorised_value, "*", ""), '"', "")  AND av.category = "diss"
 
 WHERE 
     (
-        bi.itemtype IN ("MEME", "MHMONP", "MEMU", "MES", "PFE", "THES", "TPFE", "TE")
+        bi.itemtype IN ("TE")
         AND
             (
                 i.homebranch = "BRDX"
