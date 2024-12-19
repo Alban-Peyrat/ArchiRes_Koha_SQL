@@ -4,8 +4,8 @@ SELECT biblionumber,
 FROM biblio_metadata
 
 /* Rapport ID (test) : 1482
-Rapport ID (prod) : 
+Rapport ID (prod) : 1541
 
-Si trop lourd, rajouter un WHERE pour filtrer a lsite de biblionumber possibles
+Si trop lourd, rajouter un W.HERE pour filtrer a lsite de biblionumber possibles
 
 Exporte toutes les 6XX (sauf 603-4-5) de totues les notices*/

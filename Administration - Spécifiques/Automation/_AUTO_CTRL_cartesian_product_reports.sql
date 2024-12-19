@@ -16,6 +16,8 @@ SELECT id,
 
 FROM saved_sql
 
+WHERE id NOT IN ("1503", "1504")
+
 HAVING (
     new_query REGEXP "\nFROM "
     AND new_query REGEXP "\nFROM.*,.*WHERE\n"
