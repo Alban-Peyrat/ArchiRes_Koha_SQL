@@ -1,11 +1,12 @@
-SELECT biblionumber AS 'bibnb',
+SELECT b.biblionumber AS 'bibnb',
     bi.itemtype AS 'type_doc',
     b.abstract AS 'ppn',
-    GROUP_CONCAT(DISTINCT i.homebranch SEPARATOR '|') AS "branch"
+    (SELECT GROUP_CONCAT(DISTINCT homebranch SEPARATOR '|') FROM items WHERE biblionumber = b.biblionumber) AS "branch",
+    (SELECT COUNT(*) FROM aqorders WHERE biblionumber = b.biblionumber) AS "nb_order",
+    b.datecreated AS "date_creation_Koha"
 
 FROM biblio b
 LEFT JOIN biblioitems bi USING(biblionumber)
-LEFT JOIN items i USING(biblionumber)
 LEFT JOIN aqorders a USING(biblionumber)
 
 WHERE (
