@@ -1,5 +1,5 @@
-SELECT biblionumber,
-    ExtractValue(bm.metadata,
+SELECT authid,
+    ExtractValue(marcxml,
         CONCAT('//', 
             IF(TRIM(<<Field Tag>>) BETWEEN '000' AND '009', 'controlfield', 'datafield'),
             '[@tag="',
@@ -8,7 +8,7 @@ SELECT biblionumber,
             '"]'
         )
     ) AS subfield,
-    ExtractValue(bm.metadata,
+    ExtractValue(marcxml,
         CONCAT('count(//', 
             IF(TRIM(<<Field Tag>>) BETWEEN '000' AND '009', 'controlfield', 'datafield'), 
             '[@tag="',
@@ -18,10 +18,9 @@ SELECT biblionumber,
         )
     ) AS nb_subfields
 
-FROM biblio b
-LEFT JOIN biblio_metadata bm USING(biblionumber)
+FROM auth_header
 
-WHERE ExtractValue(bm.metadata,
+WHERE ExtractValue(marcxml,
         CONCAT('//', 
             IF(TRIM(<<Field Tag>>) BETWEEN '000' AND '009', 'controlfield', 'datafield'), 
             '[@tag="',
@@ -31,4 +30,4 @@ WHERE ExtractValue(bm.metadata,
         )
     ) != ""
 
-/* Ce rapport sert à lister les notices contenant le sous-champ voulu en MARC */
+/* Ce rapport sert à lister les notices d'autorités contenant le sous-champ voulu en MARC */
