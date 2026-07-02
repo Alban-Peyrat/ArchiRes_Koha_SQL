@@ -5,7 +5,8 @@ SELECT "Items" as source,
     stocknumber,
     itemcallnumber,
     homebranch,
-    holdingbranch
+    holdingbranch,
+    timestamp
 FROM items
 WHERE barcode = TRIM(<<Barcode>>)
 
@@ -18,7 +19,8 @@ SELECT "Deleted items" as source,
     stocknumber,
     itemcallnumber,
     homebranch,
-    holdingbranch
+    holdingbranch,
+    timestamp
     
 FROM deleteditems
 WHERE barcode = TRIM(<<Barcode>>)

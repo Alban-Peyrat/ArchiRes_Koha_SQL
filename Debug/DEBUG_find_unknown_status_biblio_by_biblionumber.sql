@@ -28,7 +28,7 @@ WHERE biblionumber = TRIM(<<Biblionumber>>)
 
 UNION ALL
 
-SELECT "Merged biblio" as source,
+SELECT "Merged into this biblio" as source,
     biblionumber,
     b.title,
     b.author,
