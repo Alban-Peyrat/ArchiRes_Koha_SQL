@@ -14,7 +14,9 @@ FROM (
         created,
         expiration
     FROM borrower_debarments
-    WHERE expiration > CURRENT_DATE()
+    WHERE 
+        expiration > CURRENT_DATE()
+        OR expiration IS NULL
     ORDER BY expiration ASC
     ) AS db
 LEFT JOIN borrowers b USING(borrowernumber)
