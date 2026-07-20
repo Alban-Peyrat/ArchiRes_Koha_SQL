@@ -38,6 +38,20 @@ WHERE ba.attribute IS NOT NULL
 	AND ba.attribute != b.userid
 	AND (ba2.attribute != "1" OR ba2.attribute IS NULL)
 /* For account list : RENATER_EPPN_userid_different_non_ignore.sql */
+    
+UNION ALL
+
+SELECT "Userid différent de EPPN, EPPN n'est pas ignoré & EPPN pas trop long" as info,
+	COUNT(*) as nb_comptes,
+	'<a href="/cgi-bin/koha/reports/guided_reports.pl?id=1857&op=run">Consulter la liste des comptes concernés dans le rapport 1857</a>' as liste
+FROM borrowers b
+LEFT JOIN borrower_attributes ba ON b.borrowernumber = ba.borrowernumber AND ba.code = "EPPN"
+LEFT JOIN borrower_attributes ba2 ON b.borrowernumber = ba2.borrowernumber AND ba2.code = "IGNEPPN"
+WHERE ba.attribute IS NOT NULL
+	AND ba.attribute != b.userid
+	AND length(ba.attribute) < 51
+	AND (ba2.attribute != "1" OR ba2.attribute IS NULL)
+/* For account list : RENATER_EPPN_userid_different_non_ignore_pas_long.sql */
 
 UNION ALL
 
