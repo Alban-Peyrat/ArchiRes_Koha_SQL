@@ -7,6 +7,26 @@ WHERE ba.attribute IS NOT NULL
 
 UNION ALL
 
+SELECT "EPPN contient des espaces" as info,
+	COUNT(*) as nb_comptes,
+	'<a href="/cgi-bin/koha/reports/guided_reports.pl?id=1860&op=run">Consulter la liste des comptes concernés dans le rapport 1860</a>' as liste
+FROM borrowers b
+LEFT JOIN borrower_attributes ba ON b.borrowernumber = ba.borrowernumber AND ba.code = "EPPN"
+WHERE ba.attribute IS NOT NULL
+	AND 
+    (
+        ba.attribute != REGEXP_REPLACE(ba.attribute,"\\s","")
+        OR ba.attribute REGEXP "\\s$"
+    )
+/* For account list : RENATER_EPPN_has_space.sql
+
+For some Fing reason :
+* "a " equals REGEXP_REPLACE(ba.attribute,"\\s","")
+* but "a " does not match "a$"
+* but "a " does match "\\s$" */
+
+UNION ALL
+
 SELECT "EPPN trop long" as info,
 	COUNT(*) as nb_comptes,
 	'<a href="/cgi-bin/koha/reports/guided_reports.pl?id=1855&op=run">Consulter la liste des comptes concernés dans le rapport 1855</a>' as liste
