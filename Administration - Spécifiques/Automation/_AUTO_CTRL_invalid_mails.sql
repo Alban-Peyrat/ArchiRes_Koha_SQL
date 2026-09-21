@@ -2,7 +2,7 @@ SELECT cardnumber,
     email
 FROM borrowers
 WHERE 
-    email NOT RLIKE '^[-\\._a-zA-Z0-9]*@[-\\._a-zA-Z0-9]*$'
+    email NOT RLIKE "^[-\'\\._a-zA-Z0-9]*@[-\\._a-zA-Z0-9]*$"
     AND trim(email) != ''
 
 /* Rapport ID (test) : 1471
