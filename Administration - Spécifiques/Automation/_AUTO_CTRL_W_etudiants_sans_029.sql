@@ -12,7 +12,11 @@ JOIN biblioitems bi USING(biblionumber)
 
 WHERE (
     ExtractValue(bm.metadata, 'count(//datafield[@tag="029"])') = 0
-    OR NOT ExtractValue(bm.metadata, '//datafield[@tag="029"]/subfield[@code="m"]') REGEXP "^\\d{4}_(APR|CCJP|CEAA|CESP|DPEA|DSA|MASTERE|MES|MHMONP|MEMU|PFE|RAPL|RAPS|THES|TPFE|TATE)_"
+    OR NOT ExtractValue(bm.metadata, '//datafield[@tag="029"]/subfield[@code="m"]') REGEXP CONCAT(
+        "^\\d{4}_(",
+        (SELECT GROUP_CONCAT(REGEXP_REPLACE(authorised_value,'["|\\*|_]','') SEPARATOR "|") from authorised_values where category = "diss" GROUP BY ""),
+        ")_"
+    )
 )
     AND bi.itemtype = "TE"
     AND biblionumber NOT IN ("531407", "545208", "545881")
